@@ -1,4 +1,4 @@
-package com.desafiosolos.API.model;
+package com.desafiosolos.API.models;
 
 import java.util.Objects;
 
