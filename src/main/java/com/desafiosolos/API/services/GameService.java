@@ -38,4 +38,22 @@ public class GameService {
 		List<GameMinProjection> result = gameRepository.findByList(listId);
 		return result.stream().map(x -> new GameMinDTO(x)).toList();
 	}
+	
+	@Transactional()
+	public GameDTO execute(GameDTO gameDTO) throws Exception {
+		
+		Game existsGame = gameRepository.findByTitle(gameDTO.getTitle());
+		System.out.println(existsGame);
+		if (existsGame != null) {
+			throw new Error("Esse jogo já existe!");
+		}else {
+			Game game = new Game(gameDTO.getTitle(), gameDTO.getYear(), gameDTO.getScore(), gameDTO.getGenre(),
+					gameDTO.getPlatforms(), gameDTO.getImgUrl(), gameDTO.getShortDescription(), gameDTO.getLongDescription());
+			Game result = gameRepository.save(game);
+			return new GameDTO(result);
+		}
+		
+		
+	}
+	
 }

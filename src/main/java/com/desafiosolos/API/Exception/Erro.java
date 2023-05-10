@@ -68,13 +68,14 @@ public class Erro implements Serializable {
 		return errors;
 	}
 
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	@ExceptionHandler(Exception.class)
-	public Map<String, Object> handleValidationInternalException(Exception ex) {
-
-		Map<String, Object> errors = new HashMap<>();
-		errors.put("error", "Falha no endpoint: " + ex.getMessage());
-		errors.put("código", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		return errors;
-	}
+	/*
+	 * @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	 * 
+	 * @ExceptionHandler(Exception.class) public Map<String, Object>
+	 * handleValidationInternalException(Exception ex) {
+	 * 
+	 * Map<String, Object> errors = new HashMap<>(); errors.put("error",
+	 * "Falha no endpoint: " + ex.getMessage()); errors.put("código",
+	 * HttpStatus.INTERNAL_SERVER_ERROR.value()); return errors; }
+	 */
 }

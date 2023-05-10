@@ -29,7 +29,7 @@ public class GameDTO {
 		shortDescription = gameModel.getShortDescription();
 		longDescription = gameModel.getLongDescription();
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

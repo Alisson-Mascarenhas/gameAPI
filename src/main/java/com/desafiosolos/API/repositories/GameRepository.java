@@ -1,11 +1,13 @@
 package com.desafiosolos.API.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.desafiosolos.API.dataProjection.GameMinProjection;
+import com.desafiosolos.API.dto.GameDTO;
 import com.desafiosolos.API.models.Game;
 
 public interface GameRepository extends JpaRepository<Game, Long>{
@@ -18,6 +20,7 @@ public interface GameRepository extends JpaRepository<Game, Long>{
 			WHERE tb_belonging.list_id = :listId
 			ORDER BY tb_belonging.position """)
 	List<GameMinProjection> findByList(Long listId);
-
-
+	
+	Game findByTitle(String title);
+	
 }
