@@ -1,5 +1,6 @@
 package com.desafiosolos.API.dto;
 
+import com.desafiosolos.API.dataProjection.GameMinProjection;
 import com.desafiosolos.API.models.Game;
 
 public class GameMinDTO {
@@ -20,6 +21,14 @@ public class GameMinDTO {
 		year =  gameModel.getYear();
 		imgUrl =  gameModel.getImgUrl();
 		shortDescription =  gameModel.getShortDescription();
+	}
+	
+	public GameMinDTO(GameMinProjection projection) {
+		id = projection.getId();
+		title =  projection.getTitle();
+		year =  projection.getYear();
+		imgUrl =  projection.getImgUrl();
+		shortDescription =  projection.getShortDescription();
 	}
 
 	public Long getId() {
