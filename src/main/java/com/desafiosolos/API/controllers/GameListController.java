@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafiosolos.API.dto.GameDTO;
 import com.desafiosolos.API.dto.GameListDTO;
 import com.desafiosolos.API.services.GameListService;
 
@@ -38,6 +38,12 @@ public class GameListController {
 	@PostMapping
 	public GameListDTO create(@RequestBody GameListDTO gameListDTO) throws Exception {
 		GameListDTO result = gameListService.execute(gameListDTO);
+		return result;
+	}
+	
+	@PutMapping(value = "/{id}")
+	public GameListDTO update(@RequestBody GameListDTO gameListDTO, @Positive @PathVariable Long id) throws Exception {
+		GameListDTO result = gameListService.execute(id, gameListDTO);
 		return result;
 	}
 }

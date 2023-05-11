@@ -44,6 +44,20 @@ public class GameListService {
 			GameList result = gameListRepository.save(gameList);
 			return new GameListDTO(result);
 		}
-
 	}
+	
+	@Transactional()
+	public GameListDTO execute(Long id, GameListDTO gameListDTO) throws Exception {
+
+		GameList existsGameList = gameListRepository.findById(id).get();
+		System.out.println(existsGameList);
+		if (existsGameList != null) {
+			GameList gameList = new GameList(gameListDTO.getName());
+			GameList result = gameListRepository.save(gameList);
+			return new GameListDTO(result);
+		} else {
+			throw new NoSuchElementException();
+		}
+	}
+	
 }

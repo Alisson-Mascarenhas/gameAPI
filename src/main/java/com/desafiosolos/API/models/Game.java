@@ -47,6 +47,19 @@ public class Game {
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;
 	}
+	public Game(Long id, String title, Integer year, Double score, String genre, String platforms, String imgUrl,
+			String shortDescription, String longDescription) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.year = year;
+		this.score = score;
+		this.genre = genre;
+		this.platforms = platforms;
+		this.imgUrl = imgUrl;
+		this.shortDescription = shortDescription;
+		this.longDescription = longDescription;
+	}
 
 
 	public Long getId() {

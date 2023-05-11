@@ -15,45 +15,63 @@ import com.desafiosolos.API.dto.GameMinDTO;
 import com.desafiosolos.API.models.Game;
 import com.desafiosolos.API.repositories.GameRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class GameService {
 	@Autowired
 	private GameRepository gameRepository;
-	
+
 	@Transactional(readOnly = true)
 	public GameDTO findById(Long id) {
 		Game result = gameRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Game não encontrado"));
 		return new GameDTO(result);
 	}
-	
+
 	@Transactional(readOnly = true)
-	public List<GameMinDTO> findAll(Integer page, Integer pageSize){
+	public List<GameMinDTO> findAll(Integer page, Integer pageSize) {
 		Page<Game> result = gameRepository.findAll(PageRequest.of(page, pageSize));
-		
+
 		return result.stream().map(x -> new GameMinDTO(x)).toList();
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<GameMinDTO> findByList(Long listId) {
 		List<GameMinProjection> result = gameRepository.findByList(listId);
 		return result.stream().map(x -> new GameMinDTO(x)).toList();
 	}
-	
+
 	@Transactional()
 	public GameDTO execute(GameDTO gameDTO) throws Exception {
-		
+
 		Game existsGame = gameRepository.findByTitle(gameDTO.getTitle());
 		System.out.println(existsGame);
 		if (existsGame != null) {
 			throw new Error("Esse jogo já existe!");
-		}else {
+		} else {
 			Game game = new Game(gameDTO.getTitle(), gameDTO.getYear(), gameDTO.getScore(), gameDTO.getGenre(),
-					gameDTO.getPlatforms(), gameDTO.getImgUrl(), gameDTO.getShortDescription(), gameDTO.getLongDescription());
+					gameDTO.getPlatforms(), gameDTO.getImgUrl(), gameDTO.getShortDescription(),
+					gameDTO.getLongDescription());
 			Game result = gameRepository.save(game);
 			return new GameDTO(result);
 		}
-		
-		
 	}
-	
+
+	@Transactional()
+	public GameDTO execute(Long id, GameDTO gameDTO) throws Exception {
+
+		Game existsGame = gameRepository.findById(id).get();
+		System.out.println(existsGame);
+		if (existsGame != null) {
+			Game game = new Game(id, gameDTO.getTitle(), gameDTO.getYear(), gameDTO.getScore(), gameDTO.getGenre(),
+					gameDTO.getPlatforms(), gameDTO.getImgUrl(), gameDTO.getShortDescription(),
+					gameDTO.getLongDescription());
+			Game result = gameRepository.save(game);
+			return new GameDTO(result);
+		} else {
+			throw new NoSuchElementException();
+		}
+
+	}
+
 }
