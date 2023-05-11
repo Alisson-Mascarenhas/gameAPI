@@ -52,7 +52,7 @@ public class GameListService {
 		GameList existsGameList = gameListRepository.findById(id).get();
 		System.out.println(existsGameList);
 		if (existsGameList != null) {
-			GameList gameList = new GameList(gameListDTO.getName());
+			GameList gameList = new GameList(id, gameListDTO.getName());
 			GameList result = gameListRepository.save(gameList);
 			return new GameListDTO(result);
 		} else {

@@ -25,6 +25,12 @@ public class GameList {
 		super();
 		this.name = name;
 	}
+	
+	public GameList(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
