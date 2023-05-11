@@ -60,18 +60,14 @@ public class GameService {
 	@Transactional()
 	public GameDTO execute(Long id, GameDTO gameDTO) throws Exception {
 
-		Game existsGame = gameRepository.findById(id).get();
-		System.out.println(existsGame);
-		if (existsGame != null) {
-			Game game = new Game(id, gameDTO.getTitle(), gameDTO.getYear(), gameDTO.getScore(), gameDTO.getGenre(),
+		gameRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+
+		Game game = new Game(id, gameDTO.getTitle(), gameDTO.getYear(), gameDTO.getScore(), gameDTO.getGenre(),
 					gameDTO.getPlatforms(), gameDTO.getImgUrl(), gameDTO.getShortDescription(),
 					gameDTO.getLongDescription());
-			Game result = gameRepository.save(game);
-			return new GameDTO(result);
-		} else {
-			throw new NoSuchElementException();
-		}
-
+		
+		Game result = gameRepository.save(game);
+		return new GameDTO(result);
 	}
 
 }

@@ -36,7 +36,6 @@ public class GameListService {
 	public GameListDTO execute(GameListDTO gameListDTO) throws Exception {
 
 		GameList existsGameList = gameListRepository.findByName(gameListDTO.getName());
-		System.out.println(existsGameList);
 		if (existsGameList != null) {
 			throw new Error("Essa lista já existe!");
 		} else {
@@ -49,15 +48,13 @@ public class GameListService {
 	@Transactional()
 	public GameListDTO execute(Long id, GameListDTO gameListDTO) throws Exception {
 
-		GameList existsGameList = gameListRepository.findById(id).get();
-		System.out.println(existsGameList);
-		if (existsGameList != null) {
-			GameList gameList = new GameList(id, gameListDTO.getName());
-			GameList result = gameListRepository.save(gameList);
-			return new GameListDTO(result);
-		} else {
-			throw new NoSuchElementException();
-		}
+		gameListRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+			
+		GameList gameList = new GameList(id, gameListDTO.getName());
+			
+		GameList result = gameListRepository.save(gameList);
+		return new GameListDTO(result);
+
 	}
 	
 }
