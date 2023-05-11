@@ -6,10 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.desafiosolos.API.dto.GameDTO;
 import com.desafiosolos.API.dto.GameListDTO;
-import com.desafiosolos.API.models.Game;
 import com.desafiosolos.API.models.GameList;
 import com.desafiosolos.API.repositories.GameListRepository;
 
@@ -30,6 +27,16 @@ public class GameListService {
 		GameList result = gameListRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException("Lista não encontrada"));
 		return new GameListDTO(result);
+	}
+	
+	public GameListDTO execute(Long id) throws Exception {
+		GameList result = gameListRepository.findById(id)
+				.orElseThrow(() -> new NoSuchElementException());
+			
+		gameListRepository.deleteById(result.getId());
+
+		return new GameListDTO(result);
+
 	}
 
 	@Transactional()
@@ -54,7 +61,8 @@ public class GameListService {
 			
 		GameList result = gameListRepository.save(gameList);
 		return new GameListDTO(result);
-
 	}
+	
+
 	
 }

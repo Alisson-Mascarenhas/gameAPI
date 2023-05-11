@@ -38,13 +38,13 @@ public class GameController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public GameDTO findById(@Positive @PathVariable Long id){
+	public GameDTO findById(@Positive @PathVariable("id") Long id){
 		GameDTO result = gameService.findById(id);
 		return result;
 	}
 	
 	@GetMapping(value = "/list/{listId}")
-	public List<GameMinDTO> findByList(@Positive @PathVariable Long listId, @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+	public List<GameMinDTO> findByList(@Positive @PathVariable("listId") Long listId, @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize){
 		List<GameMinDTO> result = gameService.findByList(listId);
 		return result;
@@ -60,5 +60,11 @@ public class GameController {
 	public GameDTO update(@RequestBody GameDTO gameDTO, @Positive @PathVariable Long id) throws Exception {
 		GameDTO result = gameService.execute(id, gameDTO);
 		return result;
-	}	
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<?> delete(@Positive @PathVariable("id") Long id) throws Exception{
+		GameService gameService = new GameService();
+		return gameService.execute(id);
+	}
 }

@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,5 +71,13 @@ public class GameService {
 		Game result = gameRepository.save(game);
 		return new GameDTO(result);
 	}
+	
+	@Transactional()
+	public ResponseEntity<?> execute(Long id) throws Exception {
 
+		GameDTO game = new GameDTO(gameRepository.findById(id).orElseThrow(() -> new NoSuchElementException()));
+
+		gameRepository.deleteById(game.getId());
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
 }

@@ -3,6 +3,8 @@ package com.desafiosolos.API.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,7 @@ public class GameListController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public GameListDTO findById(@Positive @PathVariable Long id){
+	public GameListDTO findById(@Positive @PathVariable("id") Long id){
 		GameListDTO result = gameListService.findById(id);
 		return result;
 	}
@@ -42,8 +44,14 @@ public class GameListController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public GameListDTO update(@RequestBody GameListDTO gameListDTO, @Positive @PathVariable Long id) throws Exception {
+	public GameListDTO update(@RequestBody GameListDTO gameListDTO, @Positive @PathVariable("id") Long id) throws Exception {
 		GameListDTO result = gameListService.execute(id, gameListDTO);
 		return result;
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public GameListDTO delete(@Positive @PathVariable("id") Long id) throws Exception{
+		GameListDTO re = gameListService.execute(id);
+		return re;
 	}
 }
