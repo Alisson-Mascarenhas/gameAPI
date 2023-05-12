@@ -17,7 +17,6 @@ import com.desafiosolos.API.dataProjection.GameMinProjection;
 import com.desafiosolos.API.dto.GameDTO;
 import com.desafiosolos.API.dto.GameMinDTO;
 import com.desafiosolos.API.models.Game;
-import com.desafiosolos.API.models.GameList;
 import com.desafiosolos.API.repositories.GameListRepository;
 import com.desafiosolos.API.repositories.GameRepository;
 
@@ -45,7 +44,7 @@ public class GameService {
 	@Transactional(readOnly = true)
 	public List<GameMinDTO> findByList(Long listId) {
 		List<GameMinProjection> result = gameRepository.findByList(listId);
-
+		
 		return result.stream().map(x -> new GameMinDTO(x)).toList();
 	}
 
@@ -94,19 +93,36 @@ public class GameService {
 	
 	@Transactional()
 	public ResponseEntity<?> assign(Long gameId, String listName) {
-		gameRepository.findById(gameId).orElseThrow(() -> new NoSuchElementException());
+		gameRepository.findById(gameId).orElseThrow(() -> new NoSuchElementException("um game com o id "+ gameId));
 		BelongingProjection glResult = gameListRepository.searchLastPositionListByName(listName);
 		
 		if (Optional.of(glResult).isEmpty()) {
-			throw new NoSuchElementException();
+			throw new NoSuchElementException(listName);
 		}
 		
-		System.out.println("List id: "+glResult.getListId());
-		System.out.println("Game id: "+glResult.getGameId());
-		System.out.println("Posição designada: "+glResult.getPosition()+1);
+		Long position = glResult.getPosition()+1;
 		
-		//gameRepository.assignGameToList(glResult.getListId(), glResult.getGameId(), glResult.getPosition()+1);
+		Long listId = gameListRepository.findByName(listName).getId();
+
+		gameRepository.saveGameToList(listId, gameId, position);
 		
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
+	
+	@Transactional()
+	public ResponseEntity<?> unAssign(Long gameId, String listName) {
+		gameRepository.findById(gameId).orElseThrow(() -> new NoSuchElementException("um game com o id "+ gameId));
+		BelongingProjection glResult = gameListRepository.searchLastPositionListByName(listName);
+		
+		if (Optional.of(glResult).isEmpty()) {
+			throw new NoSuchElementException(listName);
+		}
+		
+		Long listId = gameListRepository.findByName(listName).getId();
+
+		gameRepository.deleteGameBelongingOnList(gameId, listId);
+		
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
 }

@@ -3,7 +3,6 @@ package com.desafiosolos.API.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,6 +53,13 @@ public class GameController {
 	public ResponseEntity<?> assign(@Positive @PathVariable("gameId") Long gameId,
 			@RequestParam(value = "listName", required = true) String listName){
 		ResponseEntity<?> result = gameService.assign(gameId, listName);
+		return result;
+	}
+	
+	@DeleteMapping(value = "/{gameId}/list")
+	public ResponseEntity<?> unAssign(@Positive @PathVariable("gameId") Long gameId,
+			@RequestParam(value = "listName", required = true) String listName){
+		ResponseEntity<?> result = gameService.unAssign(gameId, listName);
 		return result;
 	}
 	

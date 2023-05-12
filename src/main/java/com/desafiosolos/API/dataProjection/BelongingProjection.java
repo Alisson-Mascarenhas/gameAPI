@@ -1,11 +1,10 @@
 package com.desafiosolos.API.dataProjection;
 
-import com.desafiosolos.API.models.Game;
-
 public interface BelongingProjection {
+	
 	Long getPosition();
+	Long getListId();
 	String getListName();
-	Integer getListId();
-	Game getGameId();
+	Long getGameId();
 	
 }

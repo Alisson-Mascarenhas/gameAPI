@@ -30,6 +30,10 @@ public interface GameRepository extends JpaRepository<Game, Long>{
 	@Modifying
 	@Query(nativeQuery = true, value = "INSERT INTO tb_belonging (list_id, game_id, position) "
 			+ "values(:listId , :gameId , :position)")
-	void assignGameToList(Long listId, Long gameId, Long position);
+	void saveGameToList(Long listId, Long gameId, Long position);
 	
+	@Modifying
+	@Query(nativeQuery = true,
+	value = "Delete from tb_belonging where game_id = :gameId and list_id = :listId")
+	void deleteGameBelongingOnList(Long gameId, Long listId);
 }
