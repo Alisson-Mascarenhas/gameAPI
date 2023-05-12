@@ -2,6 +2,7 @@ package com.desafiosolos.API.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,18 +12,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.desafiosolos.API.dataProjection.BelongingProjection;
 import com.desafiosolos.API.dataProjection.GameMinProjection;
 import com.desafiosolos.API.dto.GameDTO;
 import com.desafiosolos.API.dto.GameMinDTO;
 import com.desafiosolos.API.models.Game;
+import com.desafiosolos.API.models.GameList;
+import com.desafiosolos.API.repositories.GameListRepository;
 import com.desafiosolos.API.repositories.GameRepository;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class GameService {
 	@Autowired
 	private GameRepository gameRepository;
+	
+	@Autowired
+	private GameListRepository gameListRepository;
 
 	@Transactional(readOnly = true)
 	public GameDTO findById(Long id) {
@@ -40,6 +45,7 @@ public class GameService {
 	@Transactional(readOnly = true)
 	public List<GameMinDTO> findByList(Long listId) {
 		List<GameMinProjection> result = gameRepository.findByList(listId);
+
 		return result.stream().map(x -> new GameMinDTO(x)).toList();
 	}
 
@@ -83,6 +89,24 @@ public class GameService {
 		gameRepository.deleteGameBelonging(game.getId());
 		// Reponsavel por apagar o game
 		gameRepository.deleteById(game.getId());
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();//
+	}
+	
+	@Transactional()
+	public ResponseEntity<?> assign(Long gameId, String listName) {
+		gameRepository.findById(gameId).orElseThrow(() -> new NoSuchElementException());
+		BelongingProjection glResult = gameListRepository.searchLastPositionListByName(listName);
+		
+		if (Optional.of(glResult).isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		
+		System.out.println("List id: "+glResult.getListId());
+		System.out.println("Game id: "+glResult.getGameId());
+		System.out.println("Posição designada: "+glResult.getPosition()+1);
+		
+		//gameRepository.assignGameToList(glResult.getListId(), glResult.getGameId(), glResult.getPosition()+1);
+		
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }

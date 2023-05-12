@@ -50,6 +50,13 @@ public class GameController {
 		return result;
 	}
 	
+	@PostMapping(value = "/{gameId}/list")
+	public ResponseEntity<?> assign(@Positive @PathVariable("gameId") Long gameId,
+			@RequestParam(value = "listName", required = true) String listName){
+		ResponseEntity<?> result = gameService.assign(gameId, listName);
+		return result;
+	}
+	
 	@PostMapping
 	public GameDTO create(@RequestBody GameDTO gameDTO) throws Exception {
 		GameDTO result = gameService.execute(gameDTO);

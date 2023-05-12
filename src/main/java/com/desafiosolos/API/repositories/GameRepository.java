@@ -27,4 +27,9 @@ public interface GameRepository extends JpaRepository<Game, Long>{
 	
 	Game findByTitle(String title);
 	
+	@Modifying
+	@Query(nativeQuery = true, value = "INSERT INTO tb_belonging (list_id, game_id, position) "
+			+ "values(:listId , :gameId , :position)")
+	void assignGameToList(Long listId, Long gameId, Long position);
+	
 }
