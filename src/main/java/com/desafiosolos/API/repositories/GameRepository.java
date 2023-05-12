@@ -3,6 +3,7 @@ package com.desafiosolos.API.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.desafiosolos.API.dataProjection.GameMinProjection;
@@ -20,5 +21,10 @@ public interface GameRepository extends JpaRepository<Game, Long>{
 	List<GameMinProjection> findByList(Long listId);
 	
 	Game findByTitle(String title);
+	
+	@Modifying
+	@Query(nativeQuery = true, value = "INSERT INTO tb_belonging (list_id, game_id, position) "
+			+ "values(:listId , :gameId , :position)")
+	void assignGameToList(Long listId, Long gameId, Long position);
 	
 }
