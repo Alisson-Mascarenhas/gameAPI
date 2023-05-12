@@ -1,4 +1,4 @@
-![Template Alura](https://github.com/gui-lirasilva/Edige-POO/blob/master/Template/Thumbnails%20GitHub.png?raw=true)
+<h1 align="center"> Desafio da solos </h1>
 
 
 # Resumo do projeto
