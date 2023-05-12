@@ -2,7 +2,8 @@
 
 
 # Resumo do projeto
-Projeto em andamento, sendo realizado por integrantes do time Scuba da Alura, visando a prática com a linguagem Java e os conceitos do paradigma de orientação a objetos.
+Projeto ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+, sendo realizado por integrantes do time Scuba da Alura, visando a prática com a linguagem Java e os conceitos do paradigma de orientação a objetos.
 
 ## 🔨 Funcionalidades do projeto
 
