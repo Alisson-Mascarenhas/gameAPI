@@ -59,4 +59,4 @@ Feito isso o projeto irá rodar localmente na sua máquina podendo ser acessado 
 
 # Autores
 
-| [<img src="https://avatars.githubusercontent.com/u/37356058?v=4" width=115><br><sub>Alisson Mascarenhas</sub>](https://github.com/Alisson-Mascarenhas) | :---: | :---: | :---: |
+| [<img src="https://avatars.githubusercontent.com/u/71406140?s=400&u=4845262fe294eb5c49a606ed64f9c360c45e3691&v=4" width=115><br><sub>Alisson Mascarenhas</sub>](https://github.com/Alisson-Mascarenhas) | :---: | :---: | :---: |
