@@ -1,8 +1,9 @@
 <h1 align="center"> Desafio da solos </h1>
 
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 # Resumo do projeto
-Projeto ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+Projeto :construction: Projeto em construção :construction:
 , sendo realizado por integrantes do time Scuba da Alura, visando a prática com a linguagem Java e os conceitos do paradigma de orientação a objetos.
 
 ## 🔨 Funcionalidades do projeto
