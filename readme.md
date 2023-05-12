@@ -3,8 +3,7 @@
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 # Resumo do projeto
-Projeto :construction: Projeto em construção :construction:
-, sendo realizado por integrantes do time Scuba da Alura, visando a prática com a linguagem Java e os conceitos do paradigma de orientação a objetos.
+:construction: Projeto em construção :construction:, sendo realizado por mim(Alisson Mascarenhas), visando a prática com a linguagem Java, conhecimentos de ORM, um pouco de arquitetura e usabilidade da framework SpringBoot. Consiste em uma API de jogos onde além disso você pode categorizar eles.
 
 ## 🔨 Funcionalidades do projeto
 
@@ -45,6 +44,19 @@ Projeto :construction: Projeto em construção :construction:
 - ``Docker``
 - ``Cloud (Railway)``
 
+# 📁 Acesso ao projeto
 
-## 📁 Acesso ao projeto
 Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/Alisson-Mascarenhas/gameAPI/tree/main/src).
+
+# 🛠️ Abrir e rodar o projeto
+
+Open an Existing Project (ou alguma opção similar)
+Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
+Por fim clique em OK
+
+Após isso, é necessário ir até [aplication.properties"](https://github.com/Alisson-Mascarenhas/gameAPI/blob/main/src/main/resources/application.properties) e alterar APP_PROFILE:prod para APP_PROFILE:test.
+Feito isso o projeto irá rodar localmente na sua máquina podendo ser acessado via localhost:8080
+
+# Autores
+
+| [<img src="https://avatars.githubusercontent.com/u/37356058?v=4" width=115><br><sub>Alisson Mascarenhas</sub>](https://github.com/Alisson-Mascarenhas) | :---: | :---: | :---: |
