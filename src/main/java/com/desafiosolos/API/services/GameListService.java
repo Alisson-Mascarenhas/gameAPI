@@ -29,16 +29,22 @@ public class GameListService {
 		return new GameListDTO(result);
 	}
 	
+	// Execute de Delete
+	@Transactional
 	public GameListDTO execute(Long id) throws Exception {
 		GameList result = gameListRepository.findById(id)
 				.orElseThrow(() -> new NoSuchElementException());
-			
+		
+		// Reponsavel por apagar a relação com belonging
+		gameListRepository.deleteListBelonging(result.getId());
+		// Reponsavel por apagar a Lista
 		gameListRepository.deleteById(result.getId());
 
 		return new GameListDTO(result);
 
 	}
-
+	
+	// Execute() de criar
 	@Transactional()
 	public GameListDTO execute(GameListDTO gameListDTO) throws Exception {
 
@@ -52,6 +58,7 @@ public class GameListService {
 		}
 	}
 	
+	// Execute de update	
 	@Transactional()
 	public GameListDTO execute(Long id, GameListDTO gameListDTO) throws Exception {
 

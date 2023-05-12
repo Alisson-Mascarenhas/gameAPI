@@ -1,4 +1,4 @@
-package com.desafiosolos.API.Exception;
+package com.desafiosolos.API.Utils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.validation.ConstraintViolationException;
-
 
 @Component
 @RestControllerAdvice
@@ -68,14 +67,14 @@ public class Erro implements Serializable {
 		return errors;
 	}
 
-	/*
-	 * @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	 * 
-	 * @ExceptionHandler(Exception.class) public Map<String, Object>
-	 * handleValidationInternalException(Exception ex) {
-	 * 
-	 * Map<String, Object> errors = new HashMap<>(); errors.put("error",
-	 * "Falha no endpoint: " + ex.getMessage()); errors.put("código",
-	 * HttpStatus.INTERNAL_SERVER_ERROR.value()); return errors; }
-	 */
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+
+	@ExceptionHandler(Exception.class)
+	public Map<String, Object> handleValidationInternalException(Exception ex) {
+
+		Map<String, Object> errors = new HashMap<>();
+		errors.put("error", "Falha no endpoint: " + ex.getMessage());
+		errors.put("código", HttpStatus.INTERNAL_SERVER_ERROR.value());
+		return errors;
+	}
 }

@@ -43,6 +43,7 @@ public class GameService {
 		return result.stream().map(x -> new GameMinDTO(x)).toList();
 	}
 
+	// Execute() de criar
 	@Transactional()
 	public GameDTO execute(GameDTO gameDTO) throws Exception {
 
@@ -59,6 +60,7 @@ public class GameService {
 		}
 	}
 
+	// Execute de update
 	@Transactional()
 	public GameDTO execute(Long id, GameDTO gameDTO) throws Exception {
 
@@ -72,11 +74,14 @@ public class GameService {
 		return new GameDTO(result);
 	}
 	
+	// Execute de Delete
 	@Transactional()
 	public ResponseEntity<?> execute(Long id) throws Exception {
 
 		GameDTO game = new GameDTO(gameRepository.findById(id).orElseThrow(() -> new NoSuchElementException()));
-
+		// Reponsavel por apagar a relação com belonging
+		gameRepository.deleteGameBelonging(game.getId());
+		// Reponsavel por apagar o game
 		gameRepository.deleteById(game.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

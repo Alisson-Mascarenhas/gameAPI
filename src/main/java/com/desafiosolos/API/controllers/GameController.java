@@ -64,7 +64,7 @@ public class GameController {
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> delete(@Positive @PathVariable("id") Long id) throws Exception{
-		GameService gameService = new GameService();
+
 		return gameService.execute(id);
 	}
 }

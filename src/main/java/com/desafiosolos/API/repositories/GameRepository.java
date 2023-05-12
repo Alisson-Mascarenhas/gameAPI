@@ -3,6 +3,7 @@ package com.desafiosolos.API.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.desafiosolos.API.dataProjection.GameMinProjection;
@@ -18,6 +19,11 @@ public interface GameRepository extends JpaRepository<Game, Long>{
 			WHERE tb_belonging.list_id = :listId
 			ORDER BY tb_belonging.position """)
 	List<GameMinProjection> findByList(Long listId);
+	
+	@Modifying
+	@Query(nativeQuery = true,
+	value = "Delete from tb_belonging where game_id = :gameId")
+	void deleteGameBelonging(Long gameId);
 	
 	Game findByTitle(String title);
 	
